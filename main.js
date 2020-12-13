@@ -426,33 +426,36 @@ function revealPhaseTwo() {
   phaseOne=false;
 }
 
-document.querySelector('.compButton').addEventListener('click', function () {
-  fetch('https://complimentr.com/api')
-    .then((response) => {
-      return response.text();
-    })
-    .then((myContent) => {
-      let complimentObj = JSON.parse(myContent);
-      document.querySelector('.complimentbox').innerHTML = complimentObj.compliment;
-      generateTts(complimentObj.compliment);
-      
-      if (phaseOne) {
-        document.querySelector('.complimentbox').classList.add('box', 'fade-in');
-        document.querySelector('.compButton').innerText='gib moar compliments';
-        revealPhaseTwo();
-      }
-      return;
-    });
-}, false);
+function addListeners() {
+  document.querySelector('.compButton').addEventListener('click', function () {
+    fetch('https://complimentr.com/api')
+      .then((response) => {
+        return response.text();
+      })
+      .then((myContent) => {
+        let complimentObj = JSON.parse(myContent);
+        document.querySelector('.complimentbox').innerHTML = complimentObj.compliment;
+        generateTts(complimentObj.compliment);
 
-document.querySelector('.quoteButton').addEventListener('click',function(){
-  let quote=quoteArr[Math.floor(Math.random()*quoteArr.length)]
-  if (quote.author == null) {
-    quote.author='Unknown';
-  }
-  console.log(quote);
-  document.querySelector('.quotebox').innerHTML=quote.text+" <br> -"+quote.author;
-  document.querySelector('.quotebox').classList.add('box');
-  generateTts(quote.text + '. ' + quote.author);
-},false);
+        if (phaseOne) {
+          document.querySelector('.complimentbox').classList.add('box', 'fade-in');
+          document.querySelector('.compButton').innerText='gib moar compliments';
+          revealPhaseTwo();
+        }
+        return;
+      });
+  }, false);
 
+  document.querySelector('.quoteButton').addEventListener('click',function(){
+    let quote=quoteArr[Math.floor(Math.random()*quoteArr.length)]
+    if (quote.author == null) {
+      quote.author='Unknown';
+    }
+    console.log(quote);
+    document.querySelector('.quotebox').innerHTML=quote.text+" <br> -"+quote.author;
+    document.querySelector('.quotebox').classList.add('box');
+    generateTts(quote.text + '. ' + quote.author);
+  },false);
+}
+
+window.onLoad = addListeners();
