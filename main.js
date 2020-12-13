@@ -427,40 +427,32 @@ function revealPhaseTwo() {
   phaseOne=false;
 }
 
-function init() {
-  document.querySelector('.compButton').addEventListener('click', function () {
-    fetch('https://complimentr.com/api')
-      .then((response) => {
-        return response.text();
-      })
-      .then((myContent) => {
-        let complimentObj = JSON.parse(myContent);
-        document.querySelector('.complimentbox').innerHTML = complimentObj.compliment;
-        generateTts(complimentObj.compliment);
+document.querySelector('.compButton').addEventListener('click', function () {
+  fetch('https://complimentr.com/api')
+    .then((response) => {
+      return response.text();
+    })
+    .then((myContent) => {
+      let complimentObj = JSON.parse(myContent);
+      document.querySelector('.complimentbox').innerHTML = complimentObj.compliment;
+      generateTts(complimentObj.compliment);
 
-        if (phaseOne) {
-          document.querySelector('.complimentbox').classList.add('box', 'fade-in');
-          document.querySelector('.compButton').innerText='gib moar compliments';
-          revealPhaseTwo();
-        }
-        return;
-      });
-  }, false);
+      if (phaseOne) {
+        document.querySelector('.complimentbox').classList.add('box', 'fade-in');
+        document.querySelector('.compButton').innerText='gib moar compliments';
+        revealPhaseTwo();
+      }
+      return;
+    });
+}, false);
 
-  document.querySelector('.quoteButton').addEventListener('click',function(){
-    let quote=quoteArr[Math.floor(Math.random()*quoteArr.length)]
-    if (quote.author == null) {
-      quote.author='Unknown';
-    }
-    console.log(quote);
-    document.querySelector('.quotebox').innerHTML=quote.text+" <br> -"+quote.author;
-    document.querySelector('.quotebox').classList.add('box');
-    generateTts(quote.text + '. ' + quote.author);
-  },false);
-}
-
-window.onLoad = function() {
-  init();
-  console.log('onload ran');
-};
-console.log('hello');
+document.querySelector('.quoteButton').addEventListener('click',function(){
+  let quote=quoteArr[Math.floor(Math.random()*quoteArr.length)]
+  if (quote.author == null) {
+    quote.author='Unknown';
+  }
+  console.log(quote);
+  document.querySelector('.quotebox').innerHTML=quote.text+" <br> -"+quote.author;
+  document.querySelector('.quotebox').classList.add('box');
+  generateTts(quote.text + '. ' + quote.author);
+},false);
