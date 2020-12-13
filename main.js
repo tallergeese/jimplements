@@ -1,4 +1,3 @@
-console.log('main.js is hit');
 let phaseOne=true;
 let quoteArr=[
   {
