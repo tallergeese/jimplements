@@ -17,6 +17,7 @@ p {
 .button {
   border-color:black;
   border-radius: 6px;
+  background-color:white;
   transition-duration: 0.4s;
   padding: 10px;
   font-weight:bold;
