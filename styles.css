@@ -12,7 +12,6 @@ main {
 
 p {
   text-align: left;
-  background-color: lightgray;
   padding: 0 20px;
 }
 .button {
@@ -35,6 +34,8 @@ p {
   border-radius: 6px;
   text-align:center;
   font-weight:bold;
+  background-color: lightgray;
+
 }
 
 .hidden {
