@@ -426,7 +426,7 @@ function revealPhaseTwo() {
   phaseOne=false;
 }
 
-function addListeners() {
+function init() {
   document.querySelector('.compButton').addEventListener('click', function () {
     fetch('https://complimentr.com/api')
       .then((response) => {
@@ -458,4 +458,6 @@ function addListeners() {
   },false);
 }
 
-window.onLoad = addListeners();
+window.onLoad = function() {
+  init()
+};
