@@ -459,5 +459,6 @@ function init() {
 }
 
 window.onLoad = function() {
-  init()
+  init();
+  console.log('onload ran');
 };
