@@ -5,13 +5,19 @@ body {
 }
 
 main {
+  height:100%;
   text-align: center;
   margin: 0 auto;
   max-width: 800px;
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -25%);
 }
 
 p {
   text-align: left;
+  background-color: lightgray;
   padding: 0 20px;
 }
 .button {
