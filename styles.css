@@ -1,0 +1,92 @@
+body {
+  font-family: Lato, sans-serif;
+  font-size: 20px;
+  padding: 0 20px;
+}
+
+main {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+p {
+  text-align: left;
+  padding: 0 20px;
+}
+.button {
+  border-color:black;
+  border-radius: 6px;
+  transition-duration: 0.4s;
+  padding: 10px;
+  font-weight:bold;
+}
+
+.button:hover {
+  background-color: black;
+  color: white;
+}
+
+.box {
+  border: solid 1px;
+  border-width: 2px;
+  padding: 10px;
+  border-radius: 6px;
+  text-align:center;
+  font-weight:bold;
+}
+
+.hidden {
+  display:none;
+}
+
+.fade-in {
+  animation: fadeIn ease 100ms;
+  -webkit-animation: fadeIn ease 100ms;
+  -moz-animation: fadeIn ease 100ms;
+  -o-animation: fadeIn ease 100ms;
+  -ms-animation: fadeIn ease 100ms;
+}
+@keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+@-moz-keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+@-o-keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+@-ms-keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+}
