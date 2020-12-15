@@ -1,5 +1,58 @@
 let phaseOne=true;
 let complimentLoading=0;
+
+function generateTts(text) {
+  speechSynthesis.cancel();
+  let msg = new SpeechSynthesisUtterance();
+  msg.text=text;
+  speechSynthesis.speak(msg);
+  return;
+}
+
+function revealPhaseTwo() {
+  let elements=Array.from(document.querySelectorAll('.hidden'));
+  elements.map((element)=>{
+    element.classList.remove('hidden');
+    element.classList.add('fade-in');
+    return;
+  });
+  phaseOne=false;
+}
+
+document.querySelector('.compButton').addEventListener('click', function () {
+  if (complimentLoading==0) {
+    complimentLoading=1;
+    document.querySelector('.compButton').innerText='...';
+    fetch('https://complimentr.com/api')
+    .then((response) => {
+      return response.text();
+    })
+    .then((myContent) => {
+      let complimentObj = JSON.parse(myContent);
+      document.querySelector('.complimentbox').innerHTML = complimentObj.compliment;
+      generateTts(complimentObj.compliment);
+
+      if (phaseOne) {
+        document.querySelector('.complimentbox').classList.add('box', 'fade-in');
+        revealPhaseTwo();
+      } 
+      document.querySelector('.compButton').innerText='gib moar compliments';
+      complimentLoading=0;
+      return;
+    });
+  };
+}, false);
+
+document.querySelector('.quoteButton').addEventListener('click',function(){
+  let quote=quoteArr[Math.floor(Math.random()*quoteArr.length)]
+  if (quote.author == null) {
+    quote.author='Unknown';
+  }
+  document.querySelector('.quotebox').innerHTML=quote.text+" <br> -"+quote.author;
+  document.querySelector('.quotebox').classList.add('box');
+  generateTts(quote.text + '. ' + quote.author);
+},false);
+
 let quoteArr=[
   {
     "text": "Jim is one percent inspiration and ninety-nine percent perspiration.",
@@ -405,55 +458,3 @@ let quoteArr=[
     "text": "No Jim was ever wise by chance.",
     "author": "Seneca"
   }];
-
-function generateTts(text) {
-  speechSynthesis.cancel();
-  let msg = new SpeechSynthesisUtterance();
-  msg.text=text;
-  speechSynthesis.speak(msg);
-  return;
-}
-
-function revealPhaseTwo() {
-  let elements=Array.from(document.querySelectorAll('.hidden'));
-  elements.map((element)=>{
-    element.classList.remove('hidden');
-    element.classList.add('fade-in');
-    return;
-  });
-  phaseOne=false;
-}
-
-document.querySelector('.compButton').addEventListener('click', function () {
-  if (complimentLoading==0) {
-    complimentLoading=1;
-    document.querySelector('.compButton').innerText='...';
-    fetch('https://complimentr.com/api')
-    .then((response) => {
-      return response.text();
-    })
-    .then((myContent) => {
-      let complimentObj = JSON.parse(myContent);
-      document.querySelector('.complimentbox').innerHTML = complimentObj.compliment;
-      generateTts(complimentObj.compliment);
-
-      if (phaseOne) {
-        document.querySelector('.complimentbox').classList.add('box', 'fade-in');
-        revealPhaseTwo();
-      } 
-      document.querySelector('.compButton').innerText='gib moar compliments';
-      complimentLoading=0;
-      return;
-    });
-  };
-}, false);
-
-document.querySelector('.quoteButton').addEventListener('click',function(){
-  let quote=quoteArr[Math.floor(Math.random()*quoteArr.length)]
-  if (quote.author == null) {
-    quote.author='Unknown';
-  }
-  document.querySelector('.quotebox').innerHTML=quote.text+" <br> -"+quote.author;
-  document.querySelector('.quotebox').classList.add('box');
-  generateTts(quote.text + '. ' + quote.author);
-},false);
