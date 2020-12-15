@@ -1,4 +1,5 @@
 let phaseOne=true;
+let complimentLoading=0;
 let quoteArr=[
   {
     "text": "Jim is one percent inspiration and ninety-nine percent perspiration.",
@@ -415,19 +416,19 @@ function generateTts(text) {
 
 function revealPhaseTwo() {
   let elements=Array.from(document.querySelectorAll('.hidden'));
-  console.log(elements);
   elements.map((element)=>{
     element.classList.remove('hidden');
     element.classList.add('fade-in');
     return;
   });
-  //elements.classList.remove('hidden');
-  //elements.classList.add('fade-in');
   phaseOne=false;
 }
 
 document.querySelector('.compButton').addEventListener('click', function () {
-  fetch('https://complimentr.com/api')
+  if (complimentLoading==0) {
+    complimentLoading=1;
+    document.querySelector('.compButton').innerText='...';
+    fetch('https://complimentr.com/api')
     .then((response) => {
       return response.text();
     })
@@ -438,11 +439,13 @@ document.querySelector('.compButton').addEventListener('click', function () {
 
       if (phaseOne) {
         document.querySelector('.complimentbox').classList.add('box', 'fade-in');
-        document.querySelector('.compButton').innerText='gib moar compliments';
         revealPhaseTwo();
-      }
+      } 
+      document.querySelector('.compButton').innerText='gib moar compliments';
+      complimentLoading=0;
       return;
     });
+  };
 }, false);
 
 document.querySelector('.quoteButton').addEventListener('click',function(){
@@ -450,7 +453,6 @@ document.querySelector('.quoteButton').addEventListener('click',function(){
   if (quote.author == null) {
     quote.author='Unknown';
   }
-  console.log(quote);
   document.querySelector('.quotebox').innerHTML=quote.text+" <br> -"+quote.author;
   document.querySelector('.quotebox').classList.add('box');
   generateTts(quote.text + '. ' + quote.author);
